@@ -180,7 +180,7 @@ export default function SmtpPage() {
         className="h-screen p-2 mt-16"
       >
         <ResizablePanel defaultSize={30} minSize={25}>
-          <Card className="p-3 h-full">
+          <Card className="p-3 h-full border-none">
             <div className="flex gap-2 mb-1">
               <Input
                 placeholder="Search SMTP"
@@ -188,7 +188,7 @@ export default function SmtpPage() {
                 onChange={(e) => setToSearch(e.target.value)}
               />
             </div>
-            <div className="py-2 pr-1 scrollbar scrollbar-thumb overflow-auto h-[95%] rounded-xl">
+            <div className="py-2 pr-1 scrollbar scrollbar-thumb overflow-auto h-[95%]">
               <div>
                 {searchResult.length > 0 ? (
                   searchResult.map((smtp, index) => (
@@ -301,7 +301,7 @@ export default function SmtpPage() {
         </ResizablePanel>
         <ResizableHandle />
         <ResizablePanel defaultSize={70} minSize={50}>
-          <Card className="px-2 py-8 h-full">
+          <Card className="px-2 py-8 h-full border-none">
             <div className="flex flex-col gap-3">
               <Form {...form}>
                 <form
