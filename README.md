@@ -1,2 +1,2 @@
-# Bulk-Emailer
+# Bulk Mailer
  
