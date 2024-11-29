@@ -58,7 +58,7 @@ export default function SettingsPage() {
   return (
     <div className="h-[92vh]">
       <Navbar />
-      <div className="p-4 space-y-6 mt-16">
+      <div className="p-4 space-y-6 mt-[3.6rem]">
         <div className="flex items-center justify-between">
           <label>Delay Between Emails</label>
           <Slider
