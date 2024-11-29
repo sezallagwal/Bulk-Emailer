@@ -44,7 +44,7 @@ const formSchema = z
     firstName: z.string().optional(),
     lastName: z.string().optional(),
     email: z.string().optional(),
-    file: z.instanceof(File).optional(),
+    file: z.instanceof(Blob).optional(),
   })
   .refine((data) => data.email || data.file, {
     message: "Either provide a file or fill in all the fields",
