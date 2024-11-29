@@ -77,9 +77,9 @@ export default function Home() {
 
   return (
     <>
-      <div className="h-[91vh]">
+      <div className="h-[92vh]">
         <Navbar />
-        <form onSubmit={handleSend} className="mt-16">
+        <form onSubmit={handleSend} className="mt-[3.6rem]">
           <div className="flex w-full gap-3 p-5">
             <div className="w-full">
               <Textarea
