@@ -2,7 +2,6 @@
 
 import * as z from "zod";
 import Papa from "papaparse";
-import { toast } from "sonner";
 import db, { SMTP } from "@/lib/db";
 import debounce from "lodash.debounce";
 import Navbar from "@/components/navbar";

@@ -179,10 +179,10 @@ export default function LeadPage() {
       <Navbar />
       <ResizablePanelGroup
         direction="horizontal"
-        className="text-white h-screen p-2 mt-16 light:bg-white"
+        className="h-screen p-2 mt-16 light:bg-white"
       >
         <ResizablePanel defaultSize={30} minSize={25}>
-          <Card className="h-screen bg-gray-900 mx-2 p-3 light:bg-white">
+          <Card className="h-screen mx-2 p-3 light:bg-white">
             <div className="flex gap-2">
               <Input
                 placeholder="Search Folder"
@@ -246,7 +246,7 @@ export default function LeadPage() {
         </ResizablePanel>
         <ResizableHandle />
         <ResizablePanel defaultSize={70} minSize={50}>
-          <Card className="h-screen bg-gray-900 mr-2 p-3">
+          <Card className="h-screen mr-2 p-3">
             <div className="flex flex-col gap-3">
               <Form {...form}>
                 <form

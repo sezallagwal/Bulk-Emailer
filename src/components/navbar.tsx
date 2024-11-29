@@ -8,29 +8,16 @@ export default function Navbar() {
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
-                  <a
-                    href="/"
-                    className="rounded-md px-3 py-2 text-sm font-medium"
-                    aria-current="page"
-                  >
+                  <a href="/" className=" px-3 py-2" aria-current="page">
                     Home
                   </a>
-                  <a
-                    href="/smtp"
-                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                  >
+                  <a href="/smtp" className=" px-3 py-2">
                     SMTP
                   </a>
-                  <a
-                    href="/lead"
-                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                  >
+                  <a href="/lead" className=" px-3 py-2">
                     Leads
                   </a>
-                  <a
-                    href="/settings"
-                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                  >
+                  <a href="/settings" className=" px-3 py-2">
                     Settings
                   </a>
                   <ModeToggle />
@@ -39,6 +26,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
+        <hr />
       </nav>
     </>
   );
