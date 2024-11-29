@@ -441,7 +441,7 @@ export default function SmtpPage() {
                         <FormLabel>Upload your CSV here</FormLabel>
                         <FormControl>
                           <FileUploader
-                            value={field.value ? [field.value] : []}
+                            value={field.value ? [field.value as File] : []}
                             onValueChange={(files) =>
                               field.onChange(files ? files[0] : null)
                             }
@@ -466,7 +466,7 @@ export default function SmtpPage() {
                               {field.value && (
                                 <FileUploaderItem index={0}>
                                   <Paperclip className="h-4 w-4 stroke-current" />
-                                  <span>{field.value.name}</span>
+                                  <span>{(field.value as File).name}</span>
                                 </FileUploaderItem>
                               )}
                             </FileUploaderContent>
