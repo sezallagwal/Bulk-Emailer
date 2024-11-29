@@ -2,7 +2,6 @@
 
 import * as z from "zod";
 import Papa from "papaparse";
-import { toast } from "sonner";
 import debounce from "lodash.debounce";
 import Navbar from "@/components/navbar";
 import { useForm } from "react-hook-form";
@@ -12,12 +11,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { CloudUpload, Paperclip } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Checkbox } from "@radix-ui/react-checkbox";
-import { use, useEffect, useMemo, useState } from "react";
-import { PasswordInput } from "@/components/ui/password-input";
+import { useEffect, useMemo, useState } from "react";
 import {
   Card,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -183,10 +179,10 @@ export default function LeadPage() {
       <Navbar />
       <ResizablePanelGroup
         direction="horizontal"
-        className="text-white h-screen p-2"
+        className="text-white h-screen p-2 mt-16 light:bg-white"
       >
         <ResizablePanel defaultSize={30} minSize={25}>
-          <Card className="h-screen bg-gray-900 mx-2 p-3">
+          <Card className="h-screen bg-gray-900 mx-2 p-3 light:bg-white">
             <div className="flex gap-2">
               <Input
                 placeholder="Search Folder"

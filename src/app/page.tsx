@@ -77,19 +77,19 @@ export default function Home() {
 
   return (
     <>
-      <div className="h-screen">
+      <div className="h-[92vh]">
         <Navbar />
-        <form onSubmit={handleSend}>
+        <form onSubmit={handleSend} className="mt-16">
           <div className="flex w-full gap-3 p-5">
             <div className="w-full">
               <Textarea
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
-                placeholder="enter body"
+                placeholder="Enter Body"
               />
             </div>
             <div className="w-full flex flex-col gap-3">
-              <div className="w-full px-10">
+              <div className="w-full">
                 <MultipleSelector
                   options={smtpOptions}
                   placeholder="Select SMTPs"
@@ -111,7 +111,7 @@ export default function Home() {
                 />
               </div>
 
-              <div className="w-full px-10">
+              <div className="w-full">
                 <MultipleSelector
                   options={folderOptions}
                   placeholder="Select Folders"
@@ -136,7 +136,7 @@ export default function Home() {
               <Input
                 type="text"
                 value={subject}
-                placeholder="enter subject"
+                placeholder="Enter Subject"
                 onChange={(e) => setSubject(e.target.value)}
               />
               <div className="flex justify-center">

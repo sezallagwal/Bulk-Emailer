@@ -181,7 +181,7 @@ export default function SmtpPage() {
         className="text-white p-2 mt-16"
       >
         <ResizablePanel defaultSize={30} minSize={25}>
-          <Card className=" bg-gray-900 mx-2 p-3 overflow-auto h-full">
+          <Card className="mx-2 p-3 overflow-auto h-full">
             <div className="flex gap-2">
               <Input
                 placeholder="Search SMTP"
@@ -296,7 +296,7 @@ export default function SmtpPage() {
         </ResizablePanel>
         <ResizableHandle />
         <ResizablePanel defaultSize={70} minSize={50}>
-          <Card className=" bg-gray-900 mr-2 px-2 py-8 h-full">
+          <Card className="mr-2 px-2 py-8 h-full">
             <div className="flex flex-col gap-3">
               <Form {...form}>
                 <form
