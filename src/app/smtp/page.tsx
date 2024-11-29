@@ -173,129 +173,132 @@ export default function SmtpPage() {
   };
 
   return (
-    <div className="h-[92vh]">
+    <div className="h-[91vh]">
       <Navbar />
-      <ResizablePanelGroup
-        direction="horizontal"
-        className="p-2 mt-16"
-      >
+      <ResizablePanelGroup direction="horizontal" className="h-screen p-2 mt-16">
         <ResizablePanel defaultSize={30} minSize={25}>
-          <Card className="mx-2 p-3 overflow-auto h-full">
-            <div className="flex gap-2">
+          <Card className="p-3 h-full">
+            <div className="flex gap-2 mb-1">
               <Input
                 placeholder="Search SMTP"
                 value={toSearch}
                 onChange={(e) => setToSearch(e.target.value)}
               />
             </div>
-            <div className="mt-4">
+            <div className="py-2 pr-1 scrollbar scrollbar-thumb overflow-auto h-[95%] rounded-xl">
+            <div>
               {searchResult.length > 0 ? (
                 searchResult.map((smtp, index) => (
-                  <Card key={index}>
+                  <Card key={index} className="mb-2">
                     <CardHeader>
-                      <CardTitle>{smtp.host}</CardTitle>
-                      <CardDescription>
-                        Port: {smtp.port} | Username: {smtp.username}
-                      </CardDescription>
-                    </CardHeader>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant="outline" size="sm">
-                          Edit
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-80">
-                        <div className="grid gap-4">
-                          <div className="space-y-2">
-                            <h4 className="font-medium leading-none">
-                              Edit SMTP
-                            </h4>
-                          </div>
-                          <div className="grid gap-2">
-                            <div className="grid grid-cols-3 items-center gap-4">
-                              <Label htmlFor="host">Host</Label>
-                              <Input
-                                id="host"
-                                defaultValue={smtp.host}
-                                className="col-span-2 h-8"
-                                onChange={(e) =>
-                                  handleEdit({
-                                    ...smtp,
-                                    host: e.target.value,
-                                  })
-                                }
-                              />
-                              <Label htmlFor="port">Port</Label>
-                              <Input
-                                id="port"
-                                defaultValue={smtp.port}
-                                className="col-span-2 h-8"
-                                onChange={(e) =>
-                                  handleEdit({
-                                    ...smtp,
-                                    port: Number(e.target.value),
-                                  })
-                                }
-                              />
-                              <Label htmlFor="username">Username</Label>
-                              <Input
-                                id="username"
-                                defaultValue={smtp.username}
-                                className="col-span-2 h-8"
-                                onChange={(e) =>
-                                  handleEdit({
-                                    ...smtp,
-                                    username: e.target.value,
-                                  })
-                                }
-                              />
-                              <Label htmlFor="password">Password</Label>
-                              <Input
-                                id="password"
-                                defaultValue={smtp.password}
-                                className="col-span-2 h-8"
-                                onChange={(e) =>
-                                  handleEdit({
-                                    ...smtp,
-                                    password: e.target.value,
-                                  })
-                                }
-                              />
-                              <Label htmlFor="tls">TLS</Label>
-                              <Input
-                                id="tls"
-                                defaultValue={smtp.tls.toString()}
-                                className="col-span-2 h-8"
-                                onChange={(e) =>
-                                  handleEdit({
-                                    ...smtp,
-                                    tls: e.target.value === "true",
-                                  })
-                                }
-                              />
+                      <div>
+                        <CardTitle>{smtp.host}</CardTitle>
+                        <CardDescription>
+                          Port: {smtp.port} | Username: {smtp.username}
+                        </CardDescription>
+                      </div>
+                      <div className="flex gap-2">
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button variant="outline" size="sm">
+                              Edit
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-80">
+                            <div className="grid gap-4">
+                              <div className="space-y-2">
+                                <h4 className="font-medium leading-none">
+                                  Edit SMTP
+                                </h4>
+                              </div>
+                              <div className="grid gap-2">
+                                <div className="grid grid-cols-3 items-center gap-4">
+                                  <Label htmlFor="host">Host</Label>
+                                  <Input
+                                    id="host"
+                                    defaultValue={smtp.host}
+                                    className="col-span-2 h-8"
+                                    onChange={(e) =>
+                                      handleEdit({
+                                        ...smtp,
+                                        host: e.target.value,
+                                      })
+                                    }
+                                  />
+                                  <Label htmlFor="port">Port</Label>
+                                  <Input
+                                    id="port"
+                                    defaultValue={smtp.port}
+                                    className="col-span-2 h-8"
+                                    onChange={(e) =>
+                                      handleEdit({
+                                        ...smtp,
+                                        port: Number(e.target.value),
+                                      })
+                                    }
+                                  />
+                                  <Label htmlFor="username">Username</Label>
+                                  <Input
+                                    id="username"
+                                    defaultValue={smtp.username}
+                                    className="col-span-2 h-8"
+                                    onChange={(e) =>
+                                      handleEdit({
+                                        ...smtp,
+                                        username: e.target.value,
+                                      })
+                                    }
+                                  />
+                                  <Label htmlFor="password">Password</Label>
+                                  <Input
+                                    id="password"
+                                    defaultValue={smtp.password}
+                                    className="col-span-2 h-8"
+                                    onChange={(e) =>
+                                      handleEdit({
+                                        ...smtp,
+                                        password: e.target.value,
+                                      })
+                                    }
+                                  />
+                                  <Label htmlFor="tls">TLS</Label>
+                                  <Input
+                                    id="tls"
+                                    defaultValue={smtp.tls.toString()}
+                                    className="col-span-2 h-8"
+                                    onChange={(e) =>
+                                      handleEdit({
+                                        ...smtp,
+                                        tls: e.target.value === "true",
+                                      })
+                                    }
+                                  />
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDelete(smtp.smtpId!)}
-                    >
-                      Delete
-                    </Button>
+                          </PopoverContent>
+                        </Popover>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDelete(smtp.smtpId!)}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </CardHeader>
                   </Card>
                 ))
               ) : (
                 <p className="text-gray-500">No results found.</p>
               )}
             </div>
+            </div>
           </Card>
         </ResizablePanel>
         <ResizableHandle />
         <ResizablePanel defaultSize={70} minSize={50}>
-          <Card className="mr-2 px-2 py-8 h-full">
+          <Card className="px-2 py-8 h-full">
             <div className="flex flex-col gap-3">
               <Form {...form}>
                 <form

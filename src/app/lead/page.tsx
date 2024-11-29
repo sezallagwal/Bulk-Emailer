@@ -12,11 +12,7 @@ import { Button } from "@/components/ui/button";
 import { CloudUpload, Paperclip } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo, useState } from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -58,6 +54,7 @@ const formSchema = z
 export default function LeadPage() {
   const [toSearch, setToSearch] = useState("");
   const [searchResult, setSearchResult] = useState<Folder[]>([]);
+  const [leads, setLeads] = useState<Lead[]>([]);
 
   const dropZoneConfig = {
     maxSize: 1024 * 1024 * 4,
@@ -174,73 +171,101 @@ export default function LeadPage() {
     }
   };
 
+  const showLeads = (folder: Folder) => {
+    console.log("Show Leads");
+    console.log(folder.folderName);
+    const fetchLeads = async () => {
+      try {
+        const leads = await db.leads
+          .where({ folderId: folder.folderId })
+          .toArray();
+        console.log(leads);
+        setLeads(leads);
+      } catch (error) {
+        console.error("ON FETCHING LEADS:", error);
+      }
+    };
+
+    fetchLeads();
+  };
+
   return (
-    <div className="h-[92vh]">
+    <div className="h-[91vh]">
       <Navbar />
       <ResizablePanelGroup
         direction="horizontal"
-        className="h-screen p-2 mt-16 light:bg-white"
+        className="h-screen p-2 mt-16"
       >
         <ResizablePanel defaultSize={30} minSize={25}>
-          <Card className="h-screen mx-2 p-3 light:bg-white">
-            <div className="flex gap-2">
+          <Card className="p-3 h-full">
+            <div className="flex gap-2 mb-1">
               <Input
                 placeholder="Search Folder"
                 value={toSearch}
                 onChange={(e) => setToSearch(e.target.value)}
               />
             </div>
-            <div className="mt-4">
-              {searchResult.length > 0 ? (
-                searchResult.map((folder, index) => (
-                  <Card key={index}>
-                    <CardHeader>
-                      <CardTitle>{folder.folderName}</CardTitle>
-                    </CardHeader>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant="outline" size="sm">
-                          Edit
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-80">
-                        <div className="grid gap-4">
-                          <div className="space-y-2">
-                            <h4 className="font-medium leading-none">
-                              Edit Folder
-                            </h4>
-                          </div>
-                          <div className="grid gap-2">
-                            <div className="grid grid-cols-3 items-center gap-4">
-                              <Label htmlFor="folderName">Folder Name</Label>
-                              <Input
-                                id="folderName"
-                                defaultValue={folder.folderName}
-                                className="col-span-2 h-8"
-                                onChange={(e) =>
-                                  handleEdit({
-                                    ...folder,
-                                    folderName: e.target.value,
-                                  })
-                                }
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDelete(folder.folderId!)}
+            <div className="py-2 pr-1 scrollbar scrollbar-thumb overflow-auto h-[95%] rounded-xl">
+              <div>
+                {searchResult.length > 0 ? (
+                  searchResult.map((folder, index) => (
+                    <Card
+                      key={index}
+                      className="mb-2"
+                      onClick={() => showLeads(folder)}
                     >
-                      Delete
-                    </Button>
-                  </Card>
-                ))
-              ) : (
-                <p className="text-gray-500">No results found.</p>
-              )}
+                      <CardHeader>
+                        <CardTitle>{folder.folderName}</CardTitle>
+                        <div className="flex gap-2">
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button variant="outline" size="sm">
+                                Edit
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-80">
+                              <div className="grid gap-4">
+                                <div className="space-y-2">
+                                  <h4 className="font-medium leading-none">
+                                    Edit Folder
+                                  </h4>
+                                </div>
+                                <div className="grid gap-2">
+                                  <div className="grid grid-cols-3 items-center gap-4">
+                                    <Label htmlFor="folderName">
+                                      Folder Name
+                                    </Label>
+                                    <Input
+                                      id="folderName"
+                                      defaultValue={folder.folderName}
+                                      className="col-span-2 h-8"
+                                      onChange={(e) =>
+                                        handleEdit({
+                                          ...folder,
+                                          folderName: e.target.value,
+                                        })
+                                      }
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </PopoverContent>
+                          </Popover>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleDelete(folder.folderId!)}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      </CardHeader>
+                    </Card>
+                  ))
+                ) : (
+                  <p className="text-gray-500">No results found.</p>
+                )}
+              </div>
             </div>
           </Card>
         </ResizablePanel>
