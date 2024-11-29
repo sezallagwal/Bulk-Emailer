@@ -173,11 +173,11 @@ export default function SmtpPage() {
   };
 
   return (
-    <div className="h-[91vh]">
+    <div className="h-[92vh]">
       <Navbar />
       <ResizablePanelGroup
         direction="horizontal"
-        className="h-screen p-2 mt-16"
+        className="h-screen p-2 mt-[3.6rem]"
       >
         <ResizablePanel defaultSize={30} minSize={25}>
           <Card className="p-3 h-full border-none">

@@ -190,7 +190,7 @@ export default function LeadPage() {
   };
 
   return (
-    <div className="h-[91vh]">
+    <div className="h-[92vh]">
       <Navbar />
       <ResizablePanelGroup
         direction="horizontal"
