@@ -177,7 +177,7 @@ export default function SmtpPage() {
       <Navbar />
       <ResizablePanelGroup
         direction="horizontal"
-        className="text-white p-2 mt-16"
+        className="p-2 mt-16"
       >
         <ResizablePanel defaultSize={30} minSize={25}>
           <Card className="mx-2 p-3 overflow-auto h-full">

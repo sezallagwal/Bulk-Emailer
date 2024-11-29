@@ -94,7 +94,7 @@ export default function Home() {
                   options={smtpOptions}
                   placeholder="Select SMTPs"
                   emptyIndicator={
-                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                    <p className="text-center leading-10">
                       No SMTPs available
                     </p>
                   }
@@ -116,7 +116,7 @@ export default function Home() {
                   options={folderOptions}
                   placeholder="Select Folders"
                   emptyIndicator={
-                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                    <p className="text-center leading-10">
                       No Leads available
                     </p>
                   }
@@ -140,7 +140,7 @@ export default function Home() {
                 onChange={(e) => setSubject(e.target.value)}
               />
               <div className="flex justify-center">
-                <Button type="submit">Send</Button>
+                <Button type="submit" className="p-3 text-md">Send</Button>
               </div>
             </div>
           </div>
