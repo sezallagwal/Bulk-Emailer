@@ -58,9 +58,9 @@ export default function SettingsPage() {
   return (
     <div className="h-[92vh]">
       <Navbar />
-      <div className="p-4 space-y-6">
+      <div className="p-4 space-y-6 mt-16">
         <div className="flex items-center justify-between">
-          <label className="font-semibold text-lg">Delay Between Emails</label>
+          <label>Delay Between Emails</label>
           <Slider
             value={[delayBetweenEmails]}
             min={1}
@@ -73,7 +73,7 @@ export default function SettingsPage() {
         </div>
 
         <div className="flex items-center justify-between">
-          <label className="font-semibold text-lg">Randomize SMTP</label>
+          <label>Randomize SMTP</label>
           <Switch
             checked={randomSmtp}
             onCheckedChange={handleToggleRandomSmtp}
@@ -81,7 +81,7 @@ export default function SettingsPage() {
         </div>
 
         <div className="flex items-center justify-between">
-          <label className="font-semibold text-lg">Randomize Content</label>
+          <label>Randomize Content</label>
           <Switch
             checked={randomContent}
             onCheckedChange={handleToggleRandomContent}
