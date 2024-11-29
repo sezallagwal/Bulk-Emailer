@@ -2,7 +2,7 @@ import { ModeToggle } from "@/components/ui/theme-toggle";
 export default function Navbar() {
   return (
     <>
-      <nav className="bg-gray-800 fixed top-0 w-full">
+      <nav className="fixed top-0 w-full">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -10,7 +10,7 @@ export default function Navbar() {
                 <div className="flex space-x-4">
                   <a
                     href="/"
-                    className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                    className="rounded-md px-3 py-2 text-sm font-medium"
                     aria-current="page"
                   >
                     Home
