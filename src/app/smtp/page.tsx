@@ -52,7 +52,7 @@ const formSchema = z
     username: z.string().optional(),
     password: z.string().optional(),
     tls: z.boolean().default(false).optional(),
-    file: z.instanceof(File).optional(),
+    file: z.instanceof(Blob).optional(),
   })
   .refine(
     (data) =>
