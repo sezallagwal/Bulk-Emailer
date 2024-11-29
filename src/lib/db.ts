@@ -1,5 +1,4 @@
 import Dexie, { Table } from "dexie";
-
 interface Folder {
   folderId?: number;
   folderName: string;
@@ -28,27 +27,28 @@ interface Content {
   body: string;
 }
 
-interface Setting {
-  key: string;
-  value: string | number | boolean;
-}
+const defaultSettings: Record<string, number | boolean | string> = {
+  delayBetweenEmails: 5,
+  randomSmtp: false,
+  randomContent: false,
+};
 
 class AppDatabase extends Dexie {
   folders!: Table<Folder, number>;
   leads!: Table<Lead, number>;
   smtps!: Table<SMTP, number>;
   content!: Table<Content, number>;
-  settings!: Table<Setting, string>;
+  settings!: Table<string | number | boolean, string>;
 
   constructor() {
-    super("database");
+    super("bulkMailer");
 
     this.version(1).stores({
       folders: "++folderId, folderName",
       leads: "++leadId, folderId, firstName, lastName, email",
       smtps: "++smtpId, host, port, tls, username, password",
       content: "++contentId, subject, body",
-      settings: "key, value",
+      settings: "",
     });
 
     this.addEventListeners();
@@ -72,17 +72,45 @@ class AppDatabase extends Dexie {
     });
   }
 
-  async resetDatabase() {
-    try {
-      await this.delete();
-      console.info("Database has been reset.");
-    } catch (error) {
-      console.error("Error resetting database:", error);
+  async initializeDefaultSettings() {
+    await this.transaction("rw", this.settings, async () => {
+      for (const [key, value] of Object.entries(defaultSettings)) {
+        const existing = await this.settings.get(key);
+        if (existing === undefined) {
+          await this.settings.put(value, key);
+        }
+      }
+    });
+  }
+
+  async fetchAllSettingsAsObject(): Promise<
+    Record<string, number | boolean | string>
+  > {
+    const allEntries = await this.settings.toArray();
+    const allSettings: Record<string, number | boolean | string> = {};
+
+    for (const [key, value] of Object.entries(allEntries)) {
+      allSettings[key] = value;
     }
+
+    return allSettings;
+  }
+
+  async updateSetting(key: string, value: number | boolean | string) {
+    await this.settings.put(value, key);
+  }
+
+  async resetToDefaultSettings() {
+    await this.transaction("rw", this.settings, async () => {
+      for (const [key, value] of Object.entries(defaultSettings)) {
+        await this.settings.put(value, key);
+      }
+    });
   }
 }
 
 const db = new AppDatabase();
 
 export default db;
-export type { Folder, Lead, SMTP, Content, Setting };
+export { defaultSettings };
+export type { Folder, Lead, SMTP, Content };

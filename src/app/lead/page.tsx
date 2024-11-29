@@ -54,7 +54,7 @@ const formSchema = z
 export default function LeadPage() {
   const [toSearch, setToSearch] = useState("");
   const [searchResult, setSearchResult] = useState<Folder[]>([]);
-  const [leads, setLeads] = useState<Lead[]>([]);
+  // const [leads, setLeads] = useState<Lead[]>([]);
 
   const dropZoneConfig = {
     maxSize: 1024 * 1024 * 4,
@@ -174,19 +174,19 @@ export default function LeadPage() {
   const showLeads = (folder: Folder) => {
     console.log("Show Leads");
     console.log(folder.folderName);
-    const fetchLeads = async () => {
-      try {
-        const leads = await db.leads
-          .where({ folderId: folder.folderId })
-          .toArray();
-        console.log(leads);
-        setLeads(leads);
-      } catch (error) {
-        console.error("ON FETCHING LEADS:", error);
-      }
-    };
+    // const fetchLeads = async () => {
+    //   try {
+    //     const leads = await db.leads
+    //       .where({ folderId: folder.folderId })
+    //       .toArray();
+    //     console.log(leads);
+    //     setLeads(leads);
+    //   } catch (error) {
+    //     console.error("ON FETCHING LEADS:", error);
+    //   }
+    // };
 
-    fetchLeads();
+    // fetchLeads();
   };
 
   return (

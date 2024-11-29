@@ -8,7 +8,7 @@ async function sendEmail(
   receiver: string,
   subject: string,
   body: string,
-  isDelayBetweenEmails?: number,
+  delayBetweenEmails?: number,
   username?: string,
   password?: string,
   sender?: string,
@@ -21,20 +21,17 @@ async function sendEmail(
     // auth: username && password ? { user: username, pass: password } : undefined,
   });
 
-  console.log("reciever:", receiver);
-
   const mailOptions = {
-    // from: sender ? sender : username,
-    from: "tes@t.com",
+    from: sender ? sender : username ? username : "bulk-mailer@email.com",
     to: receiver,
     subject,
     text: body,
     attachments,
   };
 
-  if (isDelayBetweenEmails) {
+  if (delayBetweenEmails) {
     await new Promise((resolve) =>
-      setTimeout(resolve, Number(isDelayBetweenEmails))
+      setTimeout(resolve, Number(delayBetweenEmails))
     );
   }
 
@@ -52,24 +49,24 @@ export async function POST(req: NextRequest) {
       body,
       // sender,
       // attachments,
-      isRandomSmtp,
-      isDelayBetweenEmails,
+      randomSmtp,
+      delayBetweenEmails,
     } = await req.json();
 
     console.log("smtps: ", smtps);
     console.log("leads: ", leads);
     console.log("subject: ", subject);
     console.log("body: ", body);
-    console.log("isRandomSmtp: ", isRandomSmtp);
-    console.log("isDelayBetweenEmails: ", isDelayBetweenEmails);
+    console.log("randomSmtp: ", randomSmtp);
+    console.log("delayBetweenEmails: ", delayBetweenEmails);
 
     // if (
     //   !smtps ||
     //   !leads ||
     //   !subject ||
     //   !body ||
-    //   isRandomSmtp === undefined ||
-    //   isDelayBetweenEmails === undefined
+    //   randomSmtp === undefined ||
+    //   delayBetweenEmails === undefined
     // ) {
     //   return NextResponse.json({ error: "Provide all field" }, { status: 400 });
     // }
@@ -77,9 +74,12 @@ export async function POST(req: NextRequest) {
     for (const lead of leads) {
       // const firstName = lead.firstName;
       // const lastName = lead.lastName;
+      console.log("lead: ", lead);
+      console.log("email: ", lead.email);
       const receiver = lead.email;
+      console.log("receiver outside: ", receiver);
 
-      if (isRandomSmtp) {
+      if (randomSmtp) {
         const randomSmtp = smtps[Math.floor(Math.random() * smtps.length)];
         await sendEmail(
           randomSmtp.host,
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
           receiver,
           subject,
           body,
-          isDelayBetweenEmails
+          delayBetweenEmails
         );
         message = `Email sent from ${randomSmtp.username} to ${receiver}`;
         console.log(message);
@@ -102,11 +102,12 @@ export async function POST(req: NextRequest) {
             smtp.host,
             smtp.port,
             smtp.tls,
-            smtp.username,
-            smtp.password,
             receiver,
             subject,
-            body
+            body,
+            delayBetweenEmails,
+            smtp.username,
+            smtp.password
           );
 
           message = `Email sent from ${smtp.username} to ${receiver}`;
@@ -121,23 +122,23 @@ export async function POST(req: NextRequest) {
   }
 
   // Send logs to frontend
-  // return new NextResponse(
-  //   new ReadableStream({
-  //     start(controller) {
-  //       controller.enqueue(
-  //         JSON.stringify({
-  //           message: message || "Error in logs",
-  //         })
-  //       );
-  //       controller.close();
-  //     },
-  //   }),
-  //   {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   }
-  // );
+  return new NextResponse(
+    new ReadableStream({
+      start(controller) {
+        controller.enqueue(
+          JSON.stringify({
+            message: message || "Error in logs",
+          })
+        );
+        controller.close();
+      },
+    }),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 }
 
 // for (const folder of selectedFolderOptions) {
